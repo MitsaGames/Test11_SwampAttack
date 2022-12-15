@@ -10,6 +10,12 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField] private float _bulletSpeed;
 
     private float _timeAfterShoot;
+    private Player _owner;
+
+    public void Init(Player owner)
+    {
+        _owner = owner;
+    }
 
     private void Start()
     {
@@ -26,7 +32,7 @@ public abstract class Weapon : MonoBehaviour
         if (_timeAfterShoot >= Cooldown)
         {
             var bullet = Instantiate(_bulletTemplate, _bulletStartPoint.transform.position, _bulletStartPoint.transform.rotation, this.transform);
-            bullet.Init(_bulletSpeed);
+            bullet.Init(_owner, _bulletSpeed);
 
             _timeAfterShoot = 0f;
         }

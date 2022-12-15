@@ -1,18 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public abstract class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     [SerializeField] private int _health;
     [SerializeField] private int _reward;
     [SerializeField] private Player _target;
 
+    public Player Target => _target;
+
+    public event UnityAction<int> Died;
+
     public void ApplyDamage(int damage)
     {
         _health -= damage;
 
-        if (_health <= 0 )
+        if (_health <= 0)
         {
             Dying();
         }
@@ -20,6 +25,7 @@ public abstract class Enemy : MonoBehaviour
 
     private void Dying()
     {
+        Died?.Invoke(_reward);
         Destroy(gameObject);
     }
 }

@@ -37,6 +37,11 @@ public class Player : MonoBehaviour
         _currentWeapon.Shoot();
     }
 
+    public void AddMoney(int amount)
+    {
+        Money += amount;
+    }
+
     private void Dying()
     {
         Destroy(gameObject);

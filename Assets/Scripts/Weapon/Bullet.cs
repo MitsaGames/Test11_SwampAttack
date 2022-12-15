@@ -7,10 +7,12 @@ public class Bullet : MonoBehaviour
     [SerializeField] private int _damage;
 
     private float _speed;
+    private Player _owner;
 
-    public void Init(float speed)
+    public void Init(Player owner, float speed)
     {
         _speed = speed;
+        _owner = owner;
     }
 
     private void Update()
@@ -25,6 +27,6 @@ public class Bullet : MonoBehaviour
             enemy.ApplyDamage(_damage);
         }
 
-        //Destroy(gameObject);
+        Destroy(gameObject);
     }
 }
