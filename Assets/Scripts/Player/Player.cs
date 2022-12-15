@@ -37,9 +37,10 @@ public class Player : MonoBehaviour
         _currentWeapon.Shoot();
     }
 
-    public void AddMoney(int amount)
+    public void AddMoney(Enemy enemy)
     {
-        Money += amount;
+        Money += enemy.Reward;
+        enemy.Died -= AddMoney;
     }
 
     private void Dying()

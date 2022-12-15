@@ -10,8 +10,15 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Player _target;
 
     public Player Target => _target;
+    public int Reward => _reward;
 
-    public event UnityAction<int> Died;
+    public event UnityAction<Enemy> Died;
+
+    public void Init(Player target)
+    {
+        _target = target;
+        Died += _target.AddMoney;
+    }
 
     public void ApplyDamage(int damage)
     {
@@ -25,7 +32,7 @@ public class Enemy : MonoBehaviour
 
     private void Dying()
     {
-        Died?.Invoke(_reward);
+        Died?.Invoke(this);
         Destroy(gameObject);
     }
 }

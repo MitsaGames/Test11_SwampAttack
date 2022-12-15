@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b25878dc4f12784aa63feddd566f003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cooldown: 2
+  Cooldown: 0.5
   _bulletStartPoint: {fileID: 7076290426162795618}
   _bulletTemplate: {fileID: 2593976160252514853, guid: 1166d241ad122314080a9d37ee829b30, type: 3}
-  _bulletSpeed: 7
+  _bulletSpeed: 10
