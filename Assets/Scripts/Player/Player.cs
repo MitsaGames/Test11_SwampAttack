@@ -1,18 +1,44 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private int _health;
+    [SerializeField] private Weapon _currentWeapon;
+
+    public int Money { get; private set; }
+
+    public Weapon CurrentWeapon { get; private set; }
+
+    private void Start()
     {
-        
+        CurrentWeapon = _currentWeapon;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void ApplyDamage(int damage)
     {
-        
+        _health -= damage;
+
+        if (_health <= 0)
+        {
+            Dying();
+        }
+    }
+
+    public void Shoot()
+    {
+        if (_currentWeapon == null)
+        {
+            return;
+        }
+
+        _currentWeapon.Shoot();
+    }
+
+    private void Dying()
+    {
+        Destroy(gameObject);
     }
 }
