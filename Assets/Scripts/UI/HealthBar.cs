@@ -1,0 +1,23 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class HealthBar : Bar
+{
+    [SerializeField] private Player _player;
+
+    private void Start()
+    {
+        SetValue(1, 1);
+    }
+
+    private void OnEnable()
+    {
+        _player.HealthChanged += SetValue;
+    }
+
+    private void OnDisable()
+    {
+        _player.HealthChanged -= SetValue;
+    }
+}
