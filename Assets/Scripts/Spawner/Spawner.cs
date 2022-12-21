@@ -8,72 +8,55 @@ using UnityEngine.UI;
 public class Spawner : MonoBehaviour
 {
     [SerializeField] private List<Wave> _waves;
-    [SerializeField] private float _timeToNextEnemy;
     [SerializeField] private Player _target;
     [SerializeField] private Transform _spawnPoint;
-    [SerializeField] private Button _nextWaveButton;
-
-    public event UnityAction NextWaveReady;
 
     private Wave _currentWave;
     private int _currentWaveIndex;
-    private float _currentWaveTime;
-    private float _currentTimeToNextEnemy;
-    private float _currentTimeToNextWave;
-    private int _currentWaveEnemyCount;
-    private bool _nextWaveReady = false;
+    private float _timeToNextSpawn;
+    private int _spawned;
+
+    public event UnityAction AllEnemiesSpawned;
 
     private void Start()
     {
         if (_waves != null && _waves.Count > 0)
         {
             _currentWave = _waves[_currentWaveIndex];
-            _currentTimeToNextWave = _currentWave.TimeToNextWave;
         }
     }
 
     private void Update()
     {
-        _currentWaveTime += Time.deltaTime;
-
-        if (_currentWaveTime >= _currentTimeToNextWave && _nextWaveReady == false)
-        {
-            _nextWaveReady = true;
-            NextWaveReady?.Invoke();
-        }
-
         if (_currentWave != null)
         {
-            if (_currentWaveEnemyCount >= _currentWave.EnemiesCount)
+            _timeToNextSpawn += Time.deltaTime;
+
+            if (_spawned >= _currentWave.EnemiesCount)
             {
+                AllEnemiesSpawned?.Invoke();
                 _currentWave = null;
                 return;
             }
 
-            _currentTimeToNextEnemy += Time.deltaTime;
-
-            if (_currentTimeToNextEnemy >= _timeToNextEnemy)
+            if (_timeToNextSpawn >= _currentWave.Delay)
             {
-                _currentTimeToNextEnemy = 0f;
+                _timeToNextSpawn = 0f;
                 InstantiateEnemy(_currentWave.EnemyTemplate);
-                _currentWaveEnemyCount++;
+                _spawned++;
             }
         }
     }
 
     public void StartNextWave()
     {
-        if (_waves != null && _currentWaveIndex + 1 < _waves.Count && _nextWaveReady)
+        if (_waves != null && _currentWaveIndex + 1 < _waves.Count)
         {
-            _nextWaveReady = false;
-
             _currentWaveIndex++;
 
             _currentWave = _waves[_currentWaveIndex];
-            _currentTimeToNextWave = _currentWave.TimeToNextWave;
-            _currentWaveTime = 0;
-            _currentTimeToNextEnemy = 0;
-            _currentWaveEnemyCount = 0;
+            _timeToNextSpawn = 0;
+            _spawned = 0;
         }
     }
 
@@ -89,5 +72,5 @@ public class Wave
 {
     public int EnemiesCount;
     public Enemy EnemyTemplate;
-    public float TimeToNextWave;
+    public float Delay;
 }

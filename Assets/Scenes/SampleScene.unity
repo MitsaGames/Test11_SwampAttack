@@ -156,14 +156,12 @@ MonoBehaviour:
   _waves:
   - EnemiesCount: 5
     EnemyTemplate: {fileID: 8603743649440273374, guid: 6744c00c7083562499c80519aa47dc91, type: 3}
-    TimeToNextWave: 5
+    Delay: 1
   - EnemiesCount: 10
     EnemyTemplate: {fileID: 8603743649440273374, guid: 6744c00c7083562499c80519aa47dc91, type: 3}
-    TimeToNextWave: 10
-  _timeToNextEnemy: 0.5
+    Delay: 2
   _target: {fileID: 497396950}
   _spawnPoint: {fileID: 1891043889}
-  _nextWaveButton: {fileID: 1850882249}
 --- !u!4 &48237192
 Transform:
   m_ObjectHideFlags: 0

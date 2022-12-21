@@ -12,16 +12,18 @@ public abstract class State : MonoBehaviour
 
     public void Enter(Player target)
     {
-        _target = target;
-
-        enabled = true;
-
-        if (_transitions != null && enabled == true)
+        if (enabled == false)
         {
-            foreach (var transition in _transitions)
+            _target = target;
+            enabled = true;
+
+            if (_transitions != null)
             {
-                transition.enabled = true;
-                transition.Init(_target);
+                foreach (var transition in _transitions)
+                {
+                    transition.enabled = true;
+                    transition.Init(_target);
+                }
             }
         }
     }
@@ -36,7 +38,7 @@ public abstract class State : MonoBehaviour
             }
         }
 
-        this.enabled = false;
+        enabled = false;
     }
 
     public bool TryGetNextState(out State targetState)

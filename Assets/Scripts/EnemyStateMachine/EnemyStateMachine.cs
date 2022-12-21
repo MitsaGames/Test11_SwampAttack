@@ -23,7 +23,6 @@ public class EnemyStateMachine : MonoBehaviour
 
         if (_currentState != null)
         {
-            //_currentState.enabled = true;
             _currentState.Enter(_enemy.Target);
         }
     }
@@ -42,8 +41,6 @@ public class EnemyStateMachine : MonoBehaviour
             if (nextState != null)
             {
                 _currentState = nextState;
-                //_currentState.enabled = true;
-
                 _currentState.Enter(_enemy.Target);
             }
         }

@@ -5,14 +5,18 @@ using UnityEngine;
 public class EnemyDistanceTransition : Transition
 {
     [SerializeField] private float _targetDistance;
-    [SerializeField] private float _distanceRange;
+    [SerializeField] private float _rangeSpread;
+
+    private void Start()
+    {
+        _targetDistance += Random.Range(-_rangeSpread, _rangeSpread);
+    }
 
     private void Update()
     {
         var currentDistance = Vector2.Distance(transform.position, Target.transform.position);
-        var currentDistanceRange = Random.Range(-_distanceRange, _distanceRange);
 
-        if (_targetDistance + currentDistanceRange >= currentDistance)
+        if (_targetDistance >= currentDistance)
         {
             NeedTransite = true;
         }

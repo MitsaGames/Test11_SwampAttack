@@ -11,16 +11,16 @@ public class SpawnButton : MonoBehaviour
     private void OnEnable()
     {
         _nextWaveButton.onClick.AddListener(_spawner.StartNextWave);
-        _spawner.NextWaveReady += OnNextWaveReady;
+        _spawner.AllEnemiesSpawned += OnAllEnemiesSpawned;
     }
 
     private void OnDisable()
     {
         _nextWaveButton.onClick.RemoveListener(_spawner.StartNextWave);
-        _spawner.NextWaveReady -= OnNextWaveReady;
+        _spawner.AllEnemiesSpawned -= OnAllEnemiesSpawned;
     }
 
-    private void OnNextWaveReady()
+    private void OnAllEnemiesSpawned()
     {
         _nextWaveButton.gameObject.SetActive(true);
     }
